@@ -1,22 +1,28 @@
-const lifts = 3;
+const lifts = 4;
 const liftContainer = document.querySelector('.lift-container')
 const lift = document.querySelector('.lift');
 const nextBtn = document.querySelector('#goToNext');
 const prevBtn = document.querySelector('#goToPrev');
 
-const liftContainerHeight = parseInt(window.getComputedStyle(liftContainer,null).getPropertyValue('height'));
-const liftHeight = parseInt(window.getComputedStyle(lift,null).getPropertyValue('height'));
 
 function createFloors(number){
   let i=0,iLength=number;
   for(i; i<iLength;i++){
   const el = document.createElement('div');
+  el.textContent = i;
   el.classList.add('floor');
   liftContainer.appendChild(el);
   }
 }
 
-createFloors(3);
+function initContainerHeight(){
+  liftContainer.style.height = lifts * 100 + 'px';
+  liftContainerHeight = parseInt(window.getComputedStyle(liftContainer,null).getPropertyValue('height'));
+  liftHeight = parseInt(window.getComputedStyle(lift,null).getPropertyValue('height'));
+}
+
+createFloors(lifts);
+initContainerHeight();
 
 function nextFloor(){  
   let current = isNaN(parseInt(lift.style.top)) ? 0 : parseInt(lift.style.top);
@@ -38,6 +44,10 @@ function prevFloor(){
 }
 
 nextBtn.addEventListener('click',nextFloor);
-prevBtn.addEventListener('click',prevFloor)
+prevBtn.addEventListener('click',prevFloor);
+document.addEventListener('keyup', (event)=>{
+  if(event.keyCode === 38) prevFloor();
+  if(event.keyCode === 40) nextFloor();
+});
 
 
