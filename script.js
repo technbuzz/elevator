@@ -43,6 +43,14 @@ function prevFloor(){
   
 }
 
+const getPos = document.querySelector('.getPos');
+
+getPos.addEventListener('click', getPosition);
+
+function getPosition(){
+  navigator.geolocation.getCurrentPosition(x => console.log(x),err=>console.log(err));
+}
+
 nextBtn.addEventListener('click',nextFloor);
 prevBtn.addEventListener('click',prevFloor);
 document.addEventListener('keyup', (event)=>{
